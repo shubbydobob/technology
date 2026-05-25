@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RestController와 Controller 차이 | Technology Notes</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 이동">
+      <a href="/notes/spring">Spring 목록</a>
+      <a href="/notes/spring/mvc">MVC</a>
+      <a href="/notes/spring/request-body">RequestBody</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Spring MVC</p>
+      <h1>RestController와 Controller 차이</h1>
+      <p class="hero-copy">View를 반환하는 MVC Controller와 HTTP Body 데이터를 반환하는 REST API Controller의 차이를 정리합니다.</p>
+    </section>
+  </header>
+  <main>
+    <article class="note">
+      <div class="note-heading">
+        <p class="category">Spring MVC</p>
+        <h2>RestController와 Controller 차이</h2>
+        <p><code>@Controller</code>는 주로 View를 반환하는 MVC Controller이고, <code>@RestController</code>는 JSON/XML 같은 데이터를 HTTP Body로 바로 반환하는 REST API Controller입니다.</p>
+      </div>
+
+      <section>
+        <h3>핵심 차이</h3>
+        <div class="table-wrap"><table><thead><tr><th>구분</th><th>@Controller</th><th>@RestController</th></tr></thead><tbody><tr><td>주 사용 목적</td><td>화면(View) 반환</td><td>데이터(JSON/XML) 반환</td></tr><tr><td>반환값 해석</td><td>View 이름으로 해석될 수 있음</td><td>HTTP Response Body로 작성됨</td></tr><tr><td>@ResponseBody 필요 여부</td><td>JSON 반환 시 필요</td><td>기본 포함</td></tr><tr><td>주 사용 위치</td><td>전통적인 MVC 웹 페이지</td><td>REST API 서버</td></tr><tr><td>예시 반환</td><td><code>"user/list"</code></td><td><code>{ "id": 1, "name": "kim" }</code></td></tr></tbody></table></div>
+      </section>
+
+      <section>
+        <h3>@RestController의 의미</h3>
+        <p><code>@RestController</code>는 내부적으로 <code>@Controller</code>와 <code>@ResponseBody</code>를 합친 어노테이션입니다. 따라서 클래스의 모든 핸들러 메서드에 <code>@ResponseBody</code>가 적용된 것처럼 동작합니다.</p>
+      </section>
+
+      <section>
+        <h3>요청 처리 흐름 비교</h3>
+        <div class="diagram mermaid">flowchart TD
+A[Client Request] --> B{Controller 종류}
+B -->|@Controller| C[Controller Method]
+C --> D[View Name 반환]
+D --> E[ViewResolver]
+E --> F[HTML View 응답]
+B -->|@RestController| G[Controller Method]
+G --> H[객체 반환]
+H --> I[HttpMessageConverter]
+I --> J[JSON/XML Response Body]</div>
+      </section>
+
+      <section>
+        <h3>코드 비교</h3>
+        <div class="diagram"><pre><code>@Controller
+public class PageController {
+    @GetMapping("/users")
+    public String usersPage(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/list";
+    }
+}
+
+@RestController
+public class UserApiController {
+    @GetMapping("/api/users")
+    public List&lt;UserResponse&gt; users() {
+        return userService.findAll();
+    }
+}</code></pre></div>
+      </section>
+
+      <section>
+        <h3>언제 무엇을 쓰는가?</h3>
+        <div class="table-wrap"><table><thead><tr><th>상황</th><th>선택</th></tr></thead><tbody><tr><td>Thymeleaf/JSP 같은 서버 렌더링 화면을 반환한다</td><td><code>@Controller</code></td></tr><tr><td>JSON 기반 REST API를 만든다</td><td><code>@RestController</code></td></tr><tr><td>일부 메서드만 JSON을 반환한다</td><td><code>@Controller</code> + 메서드별 <code>@ResponseBody</code></td></tr><tr><td>프론트엔드와 백엔드를 분리한 API 서버다</td><td>대부분 <code>@RestController</code></td></tr></tbody></table></div>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list"><li><strong>@Controller와 @RestController의 차이는?</strong><span>@Controller는 View 반환 중심, @RestController는 Response Body 데이터 반환 중심입니다.</span></li><li><strong>@RestController는 무엇의 조합인가?</strong><span>@Controller + @ResponseBody입니다.</span></li><li><strong>@Controller에서 JSON을 반환하려면?</strong><span>메서드나 클래스에 @ResponseBody를 붙입니다.</span></li><li><strong>객체를 JSON으로 바꾸는 주체는?</strong><span>HttpMessageConverter, 보통 Jackson 기반 converter가 처리합니다.</span></li></ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
