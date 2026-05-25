@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Technology Notes</title>
+  <meta name="description" content="기술면접과 CS 개념을 표와 다이어그램으로 정리한 노트" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 이동">
+      <a href="#inf">.inf</a>
+      <a href="#dns">DNS</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">CS & Interview Notes</p>
+      <h1>기술면접 개념 정리</h1>
+      <p class="hero-copy">Windows .inf 파일과 DNS를 독립적인 노트로 정리했습니다. 핵심 정의, 흐름, 비교 표, 면접 포인트를 한 화면에서 빠르게 확인할 수 있습니다.</p>
+    </section>
+  </header>
+
+  <main>
+    <section class="overview" aria-label="노트 목록">
+      <article>
+        <span>운영체제</span>
+        <h2>.inf란 무엇인가?</h2>
+        <p>Windows가 드라이버와 구성 요소를 설치할 때 참조하는 텍스트 기반 설정 정보 파일입니다.</p>
+        <a href="#inf">노트 보기</a>
+      </article>
+      <article>
+        <span>네트워크</span>
+        <h2>DNS란 무엇인가?</h2>
+        <p>도메인 이름을 IP 주소로 변환해 인터넷 통신을 가능하게 하는 계층형 분산 시스템입니다.</p>
+        <a href="#dns">노트 보기</a>
+      </article>
+    </section>
+
+    <article id="inf" class="note">
+      <div class="note-heading">
+        <p class="category">운영체제</p>
+        <h2>.inf란 무엇인가?</h2>
+        <p><code>.inf</code> 파일은 Windows에서 장치 드라이버, 시스템 구성 요소, 설치 정보 등을 설명하는 설정 정보 파일입니다.</p>
+      </div>
+
+      <section>
+        <h3>핵심 개념</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>항목</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td>정식 의미</td><td>Setup Information File</td></tr>
+              <tr><td>파일 형식</td><td>텍스트 기반 설정 파일</td></tr>
+              <tr><td>주 사용처</td><td>Windows 드라이버 설치, 장치 인식, 시스템 구성 요소 설치</td></tr>
+              <tr><td>실행 파일 여부</td><td>직접 실행되는 프로그램이 아니라 Windows 설치 관리자나 Plug and Play 관리자가 해석합니다.</td></tr>
+              <tr><td>대표 위치</td><td><code>C:\Windows\INF</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>설치 흐름</h3>
+        <div class="diagram mermaid">
+flowchart LR
+  A[새 하드웨어 연결] --> B[Windows Plug and Play 감지]
+  B --> C[하드웨어 ID 확인]
+  C --> D[.inf 파일 검색]
+  D --> E{ID가 일치하는가?}
+  E -- 예 --> F[드라이버 파일 설치]
+  E -- 아니오 --> G[알 수 없는 장치 또는 수동 설치 필요]
+  F --> H[장치 사용 가능]
+        </div>
+      </section>
+
+      <section>
+        <h3>.inf 파일이 담는 정보</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>정보</th><th>예시</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td>제조사 정보</td><td>Intel, NVIDIA, Realtek</td><td>드라이버 제공자 식별</td></tr>
+              <tr><td>지원 OS</td><td>Windows 10, Windows 11</td><td>설치 가능한 운영체제 제한</td></tr>
+              <tr><td>하드웨어 ID</td><td><code>PCI\VEN_8086...</code></td><td>장치와 드라이버 매칭</td></tr>
+              <tr><td>복사할 파일</td><td><code>.sys</code>, <code>.dll</code>, <code>.cat</code></td><td>실제 드라이버 구성 파일 지정</td></tr>
+              <tr><td>레지스트리 설정</td><td>서비스 등록, 장치 옵션</td><td>Windows 동작 설정</td></tr>
+              <tr><td>디지털 서명 정보</td><td><code>.cat</code> 파일 참조</td><td>드라이버 신뢰성 검증</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>관련 파일 비교</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>파일</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td><code>.inf</code></td><td>설치 절차와 장치 매칭 정보를 설명합니다.</td></tr>
+              <tr><td><code>.sys</code></td><td>커널 모드 드라이버 본체인 경우가 많습니다.</td></tr>
+              <tr><td><code>.cat</code></td><td>드라이버 패키지의 디지털 서명 카탈로그입니다.</td></tr>
+              <tr><td><code>.dll</code></td><td>드라이버나 장치 유틸리티가 사용하는 라이브러리입니다.</td></tr>
+              <tr><td><code>.exe</code></td><td>별도 설치 프로그램 또는 유틸리티일 수 있습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list">
+          <li><strong>.inf는 실행 파일인가?</strong><span>아닙니다. Windows가 해석하는 텍스트 기반 설치 정보 파일입니다.</span></li>
+          <li><strong>드라이버 설치에서 역할은?</strong><span>하드웨어 ID와 드라이버를 매칭하고 설치 절차를 정의합니다.</span></li>
+          <li><strong>.inf만 있으면 드라이버가 동작하는가?</strong><span>아닙니다. 실제 드라이버 파일인 .sys 등이 함께 필요합니다.</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <article id="dns" class="note">
+      <div class="note-heading">
+        <p class="category">네트워크</p>
+        <h2>DNS란 무엇인가?</h2>
+        <p>DNS는 사람이 읽기 쉬운 도메인 이름을 컴퓨터가 통신에 사용하는 IP 주소로 변환해주는 인터넷의 이름 해석 시스템입니다.</p>
+      </div>
+
+      <section>
+        <h3>핵심 개념</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>항목</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td>정식 명칭</td><td>Domain Name System</td></tr>
+              <tr><td>주 역할</td><td>도메인 이름을 IP 주소로 변환</td></tr>
+              <tr><td>비유</td><td>인터넷의 전화번호부</td></tr>
+              <tr><td>기본 포트</td><td>UDP 53, 필요 시 TCP 53</td></tr>
+              <tr><td>대표 레코드</td><td>A, AAAA, CNAME, MX, NS, TXT</td></tr>
+              <tr><td>구조</td><td>계층형 분산 데이터베이스</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>DNS 조회 흐름</h3>
+        <div class="diagram mermaid">
+sequenceDiagram
+  participant User as 사용자 브라우저
+  participant OS as OS DNS 캐시
+  participant Resolver as 재귀 DNS 서버
+  participant Root as Root DNS 서버
+  participant TLD as TLD DNS 서버
+  participant Auth as 권한 DNS 서버
+  User->>OS: www.example.com IP 요청
+  OS->>OS: 로컬 캐시 확인
+  OS->>Resolver: 캐시에 없으면 질의
+  Resolver->>Root: .com 담당 서버는?
+  Root-->>Resolver: .com TLD 서버 정보
+  Resolver->>TLD: example.com 담당 서버는?
+  TLD-->>Resolver: 권한 DNS 서버 정보
+  Resolver->>Auth: www.example.com IP는?
+  Auth-->>Resolver: A 레코드 응답
+  Resolver-->>OS: IP 주소 반환
+  OS-->>User: 서버 접속 가능
+        </div>
+      </section>
+
+      <section>
+        <h3>DNS 계층 구조</h3>
+        <div class="diagram mermaid">
+flowchart TD
+  A[Root .] --> B[Top-Level Domain: .com]
+  A --> C[Top-Level Domain: .kr]
+  A --> D[Top-Level Domain: .org]
+  B --> E[example.com]
+  E --> F[www.example.com]
+  E --> G[api.example.com]
+  E --> H[mail.example.com]
+        </div>
+      </section>
+
+      <section>
+        <h3>주요 DNS 서버 역할</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>구성 요소</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td>Stub Resolver</td><td>사용자의 OS나 브라우저 쪽에서 DNS 질의를 시작합니다.</td></tr>
+              <tr><td>Recursive Resolver</td><td>사용자를 대신해 Root, TLD, 권한 DNS 서버에 질의합니다.</td></tr>
+              <tr><td>Root DNS Server</td><td>최상위 DNS 서버로 TLD 서버 위치를 알려줍니다.</td></tr>
+              <tr><td>TLD DNS Server</td><td>.com, .kr 같은 최상위 도메인의 담당 권한 서버를 알려줍니다.</td></tr>
+              <tr><td>Authoritative DNS Server</td><td>특정 도메인의 실제 DNS 레코드를 보유하고 최종 응답을 제공합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>주요 DNS 레코드</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>레코드</th><th>의미</th><th>예시 사용처</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>도메인을 IPv4 주소에 연결</td><td>웹 서버 접속</td></tr>
+              <tr><td>AAAA</td><td>도메인을 IPv6 주소에 연결</td><td>IPv6 기반 접속</td></tr>
+              <tr><td>CNAME</td><td>별칭 도메인을 실제 도메인에 연결</td><td>www 별칭 구성</td></tr>
+              <tr><td>MX</td><td>메일 서버 지정</td><td>이메일 수신 서버 설정</td></tr>
+              <tr><td>NS</td><td>권한 DNS 서버 지정</td><td>도메인 위임</td></tr>
+              <tr><td>TXT</td><td>텍스트 정보 저장</td><td>SPF, DKIM, 소유권 검증</td></tr>
+              <tr><td>PTR</td><td>IP 주소를 도메인 이름으로 역조회</td><td>Reverse DNS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>캐시와 TTL</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>개념</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td>DNS Cache</td><td>이전 조회 결과를 저장해 재조회 속도를 높입니다.</td></tr>
+              <tr><td>TTL</td><td>캐시된 DNS 응답이 유효한 시간입니다.</td></tr>
+              <tr><td>TTL이 짧을 때</td><td>변경 반영은 빠르지만 DNS 질의가 많아집니다.</td></tr>
+              <tr><td>TTL이 길 때</td><td>성능은 좋지만 변경 전파가 느립니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list">
+          <li><strong>DNS는 왜 필요한가?</strong><span>사람이 읽는 도메인을 네트워크가 사용하는 IP 주소로 변환하기 위해 필요합니다.</span></li>
+          <li><strong>Recursive Resolver와 Authoritative DNS의 차이는?</strong><span>Recursive Resolver는 대신 찾아주는 서버이고, Authoritative DNS는 실제 정답 레코드를 가진 서버입니다.</span></li>
+          <li><strong>DNS는 항상 Root 서버까지 질의하는가?</strong><span>아닙니다. 캐시에 있으면 Root까지 가지 않고 바로 응답합니다.</span></li>
+          <li><strong>DNS가 UDP를 쓰는 이유는?</strong><span>대부분의 질의가 작고 빠른 응답이 중요하기 때문입니다.</span></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
