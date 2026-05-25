@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MQTT란 무엇인가? | Technology Notes</title>
+  <meta name="description" content="MQTT 구조, QoS, Publish Subscribe 방식 정리" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script>
+</head>
+<body>
+  <header class="site-header"><nav class="nav" aria-label="주요 이동"><a href="../index.html">목록</a><a href="was.html">WAS</a></nav><section class="hero"><p class="eyebrow">Network</p><h1>MQTT란 무엇인가?</h1><p class="hero-copy">저전력, 저대역폭 환경에 적합한 경량 Publish/Subscribe 메시징 프로토콜입니다.</p></section></header>
+  <main><article class="note">
+    <div class="note-heading"><p class="category">네트워크</p><h2>MQTT란 무엇인가?</h2><p>MQTT(Message Queuing Telemetry Transport)는 가볍고 효율적인 발행/구독 기반 메시징 프로토콜입니다.</p></div>
+    <section><h3>핵심 개념</h3><div class="table-wrap"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>정식 의미</td><td>Message Queuing Telemetry Transport</td></tr><tr><td>통신 방식</td><td>Publish/Subscribe</td></tr><tr><td>중심 구성 요소</td><td>Broker</td></tr><tr><td>기본 포트</td><td>TCP 1883, TLS 사용 시 8883</td></tr><tr><td>대표 사용처</td><td>IoT 센서, 스마트홈, 차량, 원격 모니터링</td></tr><tr><td>특징</td><td>가볍고 오버헤드가 작으며 불안정한 네트워크에 적합</td></tr></tbody></table></div></section>
+    <section><h3>MQTT 구조</h3><div class="diagram mermaid">
+flowchart LR
+  P1[Publisher: 온도 센서] -->|publish topic: sensor/temp| B[MQTT Broker]
+  P2[Publisher: 습도 센서] -->|publish topic: sensor/humidity| B
+  B -->|deliver sensor/temp| S1[Subscriber: 모니터링 앱]
+  B -->|deliver sensor/temp| S2[Subscriber: 저장 서버]
+  B -->|deliver sensor/humidity| S2
+    </div></section>
+    <section><h3>Publish/Subscribe 방식</h3><div class="table-wrap"><table><thead><tr><th>구성 요소</th><th>역할</th></tr></thead><tbody><tr><td>Publisher</td><td>특정 Topic으로 메시지를 발행합니다.</td></tr><tr><td>Subscriber</td><td>관심 있는 Topic을 구독하고 메시지를 받습니다.</td></tr><tr><td>Broker</td><td>Publisher와 Subscriber 사이에서 메시지를 중계합니다.</td></tr><tr><td>Topic</td><td>메시지의 주소 또는 채널 역할을 합니다.</td></tr></tbody></table></div></section>
+    <section><h3>HTTP와 MQTT 비교</h3><div class="table-wrap"><table><thead><tr><th>구분</th><th>HTTP</th><th>MQTT</th></tr></thead><tbody><tr><td>통신 모델</td><td>Request/Response</td><td>Publish/Subscribe</td></tr><tr><td>연결 방식</td><td>요청마다 연결하거나 연결 유지</td><td>장기 연결 기반</td></tr><tr><td>메시지 전달</td><td>클라이언트가 서버에 직접 요청</td><td>Broker가 구독자에게 전달</td></tr><tr><td>오버헤드</td><td>상대적으로 큼</td><td>작음</td></tr><tr><td>적합한 분야</td><td>웹 API, 페이지 요청</td><td>IoT, 실시간 센서 데이터, 이벤트 전송</td></tr></tbody></table></div></section>
+    <section><h3>QoS 단계</h3><div class="table-wrap"><table><thead><tr><th>QoS</th><th>의미</th><th>설명</th></tr></thead><tbody><tr><td>0</td><td>At most once</td><td>최대 한 번 전달. 유실 가능성이 있지만 가장 빠릅니다.</td></tr><tr><td>1</td><td>At least once</td><td>최소 한 번 전달. 중복 수신 가능성이 있습니다.</td></tr><tr><td>2</td><td>Exactly once</td><td>정확히 한 번 전달. 가장 안전하지만 오버헤드가 큽니다.</td></tr></tbody></table></div></section>
+    <section><h3>메시지 전달 흐름</h3><div class="diagram mermaid">
+sequenceDiagram
+  participant Pub as Publisher
+  participant Broker as MQTT Broker
+  participant Sub as Subscriber
+  Sub->>Broker: SUBSCRIBE sensor/temp
+  Pub->>Broker: PUBLISH sensor/temp: 23.5C
+  Broker->>Sub: PUBLISH sensor/temp: 23.5C
+    </div></section>
+    <section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>MQTT는 어떤 프로토콜인가?</strong><span>가벼운 Publish/Subscribe 기반 메시징 프로토콜입니다.</span></li><li><strong>Broker의 역할은?</strong><span>발행자와 구독자 사이에서 Topic 기반으로 메시지를 중계합니다.</span></li><li><strong>IoT에 적합한 이유는?</strong><span>헤더와 오버헤드가 작고 장기 연결 기반이라 저전력/저대역폭 환경에 적합합니다.</span></li><li><strong>QoS 0, 1, 2의 차이는?</strong><span>메시지 전달 보장 수준이 다르며, 보장 수준이 높을수록 오버헤드가 커집니다.</span></li></ul></section>
+  </article></main>
+</body>
+</html>
