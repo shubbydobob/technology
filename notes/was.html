@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WAS란 무엇인가? | Technology Notes</title>
+  <meta name="description" content="WAS와 Web Server 차이, 요청 처리 흐름 정리" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script>
+</head>
+<body>
+  <header class="site-header"><nav class="nav" aria-label="주요 이동"><a href="../index.html">목록</a><a href="mqtt.html">MQTT</a></nav><section class="hero"><p class="eyebrow">Backend</p><h1>WAS란 무엇인가?</h1><p class="hero-copy">웹 애플리케이션의 비즈니스 로직을 실행하고 동적 응답을 생성하는 서버입니다.</p></section></header>
+  <main><article class="note">
+    <div class="note-heading"><p class="category">백엔드</p><h2>WAS란 무엇인가?</h2><p>WAS(Web Application Server)는 웹 애플리케이션의 비즈니스 로직을 실행하고, 동적인 응답을 생성해주는 서버입니다.</p></div>
+    <section><h3>핵심 개념</h3><div class="table-wrap"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>정식 의미</td><td>Web Application Server</td></tr><tr><td>주 역할</td><td>동적 웹 애플리케이션 실행</td></tr><tr><td>대표 기능</td><td>비즈니스 로직 처리, DB 연동, 세션/트랜잭션 관리</td></tr><tr><td>대표 예시</td><td>Tomcat, JBoss/WildFly, WebLogic, WebSphere</td></tr><tr><td>자주 쓰는 환경</td><td>Java Servlet/JSP, Spring 기반 애플리케이션</td></tr></tbody></table></div></section>
+    <section><h3>Web Server와 WAS 차이</h3><div class="table-wrap"><table><thead><tr><th>구분</th><th>Web Server</th><th>WAS</th></tr></thead><tbody><tr><td>주요 역할</td><td>정적 리소스 제공</td><td>동적 로직 실행</td></tr><tr><td>처리 대상</td><td>HTML, CSS, JS, 이미지</td><td>API, DB 조회, 인증, 비즈니스 로직</td></tr><tr><td>대표 예시</td><td>Nginx, Apache HTTP Server</td><td>Tomcat, JBoss, WebLogic</td></tr><tr><td>강점</td><td>빠른 정적 파일 처리, 리버스 프록시, 로드밸런싱</td><td>애플리케이션 실행, 트랜잭션, 세션 처리</td></tr></tbody></table></div></section>
+    <section><h3>요청 처리 흐름</h3><div class="diagram mermaid">
+flowchart LR
+  A[Client Browser] --> B[Web Server]
+  B --> C{정적 리소스인가?}
+  C -- 예 --> D[HTML/CSS/JS/Image 응답]
+  C -- 아니오 --> E[WAS로 요청 전달]
+  E --> F[Application Logic 실행]
+  F --> G[DB 조회/외부 API 호출]
+  G --> H[동적 응답 생성]
+  H --> B
+  B --> A
+    </div></section>
+    <section><h3>WAS가 필요한 이유</h3><div class="table-wrap"><table><thead><tr><th>이유</th><th>설명</th></tr></thead><tbody><tr><td>동적 응답 생성</td><td>사용자, 요청 파라미터, DB 상태에 따라 다른 응답을 만듭니다.</td></tr><tr><td>비즈니스 로직 실행</td><td>주문, 결제, 로그인, 권한 체크 같은 핵심 로직을 처리합니다.</td></tr><tr><td>DB 연동</td><td>데이터 조회/저장/수정/삭제 작업을 수행합니다.</td></tr><tr><td>트랜잭션 관리</td><td>여러 DB 작업을 하나의 논리적 작업으로 묶어 일관성을 보장합니다.</td></tr><tr><td>세션 관리</td><td>로그인 상태 등 사용자별 상태를 관리할 수 있습니다.</td></tr></tbody></table></div></section>
+    <section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>WAS와 Web Server의 차이는?</strong><span>Web Server는 정적 리소스와 프록시에 강하고, WAS는 애플리케이션 로직 실행에 초점이 있습니다.</span></li><li><strong>Tomcat은 Web Server인가 WAS인가?</strong><span>Servlet 컨테이너이자 WAS로 볼 수 있습니다. 다만 정적 파일 처리도 가능합니다.</span></li><li><strong>왜 Nginx와 WAS를 같이 쓰는가?</strong><span>Nginx가 정적 파일, TLS, 로드밸런싱, 리버스 프록시를 맡고 WAS는 애플리케이션 로직에 집중하게 하기 위해서입니다.</span></li></ul></section>
+  </article></main>
+</body>
+</html>
