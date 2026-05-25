@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>RequestBody란 무엇인가? | Technology Notes</title><link rel="stylesheet" href="../../styles.css" /><script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script><script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script></head><body><header class="site-header"><nav class="nav"><a href="index.html">Spring 목록</a><a href="mvc.html">MVC</a><a href="dto.html">DTO</a></nav><section class="hero"><p class="eyebrow">Spring MVC</p><h1>RequestBody란 무엇인가?</h1><p class="hero-copy">HTTP 요청 본문을 Java 객체로 변환해 Controller 파라미터에 바인딩하는 어노테이션입니다.</p></section></header><main><article class="note"><div class="note-heading"><p class="category">Spring MVC</p><h2>@RequestBody란 무엇인가?</h2><p><code>@RequestBody</code>는 HTTP 요청 본문에 담긴 JSON/XML 등의 데이터를 Java 객체로 변환해 Controller 메서드 파라미터에 바인딩하는 Spring MVC 어노테이션입니다.</p></div><section><h3>핵심 개념</h3><div class="table-wrap"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>사용 위치</td><td>Controller 메서드 파라미터</td></tr><tr><td>주요 역할</td><td>HTTP Body를 Java 객체로 역직렬화</td></tr><tr><td>대표 입력</td><td>JSON 요청 본문</td></tr><tr><td>내부 처리</td><td>HttpMessageConverter가 변환 수행</td></tr><tr><td>자주 함께 쓰는 어노테이션</td><td><code>@Valid</code>, <code>@PostMapping</code>, <code>@PutMapping</code>, <code>@PatchMapping</code></td></tr></tbody></table></div></section><section><h3>요청 처리 흐름</h3><div class="diagram mermaid">sequenceDiagram
+participant Client
+participant Controller
+participant Converter as HttpMessageConverter
+participant Service
+Client->>Controller: POST /users JSON Body
+Controller->>Converter: Body를 Java 객체로 변환 요청
+Converter-->>Controller: CreateUserRequest 객체
+Controller->>Service: 비즈니스 로직 호출
+Service-->>Controller: 결과 반환
+Controller-->>Client: Response 반환</div></section><section><h3>예시</h3><div class="diagram"><pre><code>@PostMapping("/users")
+public ResponseEntity&lt;UserResponse&gt; createUser(
+    @RequestBody CreateUserRequest request
+) {
+    UserResponse response = userService.create(request);
+    return ResponseEntity.ok(response);
+}</code></pre></div></section><section><h3>@RequestBody와 @RequestParam 차이</h3><div class="table-wrap"><table><thead><tr><th>구분</th><th>@RequestBody</th><th>@RequestParam</th></tr></thead><tbody><tr><td>읽는 위치</td><td>HTTP Body</td><td>Query String 또는 Form Data</td></tr><tr><td>주 사용처</td><td>JSON API 요청</td><td>검색 조건, 단순 파라미터</td></tr><tr><td>예시</td><td><code>{ "name": "kim" }</code></td><td><code>/users?name=kim</code></td></tr><tr><td>변환 방식</td><td>HttpMessageConverter</td><td>TypeConverter/Formatter</td></tr></tbody></table></div></section><section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>@RequestBody는 무엇인가?</strong><span>HTTP 요청 본문을 Java 객체로 바인딩하는 어노테이션입니다.</span></li><li><strong>JSON을 객체로 바꾸는 주체는?</strong><span>HttpMessageConverter, 보통 MappingJackson2HttpMessageConverter가 처리합니다.</span></li><li><strong>GET 요청에서도 쓰는가?</strong><span>기술적으로 가능할 수 있지만 일반적으로 GET은 Body를 사용하지 않고 Query Parameter를 씁니다.</span></li><li><strong>유효성 검증은?</strong><span>DTO에 검증 어노테이션을 붙이고 파라미터에 <code>@Valid</code>를 함께 사용합니다.</span></li></ul></section></article></main></body></html>
