@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>MVC란 무엇인가? | Technology Notes</title><link rel="stylesheet" href="../../styles.css" /><script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script><script>mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });</script></head><body><header class="site-header"><nav class="nav"><a href="index.html">Spring 목록</a><a href="dto.html">DTO</a><a href="request-body.html">RequestBody</a></nav><section class="hero"><p class="eyebrow">Spring MVC</p><h1>MVC란 무엇인가?</h1><p class="hero-copy">애플리케이션을 Model, View, Controller로 분리하는 아키텍처 패턴입니다.</p></section></header><main><article class="note"><div class="note-heading"><p class="category">Spring MVC</p><h2>MVC란 무엇인가?</h2><p>MVC(Model-View-Controller)는 애플리케이션을 역할별로 나누어 유지보수성과 확장성을 높이는 아키텍처 패턴입니다.</p></div><section><h3>핵심 개념</h3><div class="table-wrap"><table><thead><tr><th>구성 요소</th><th>역할</th></tr></thead><tbody><tr><td>Model</td><td>데이터와 비즈니스 상태를 표현합니다.</td></tr><tr><td>View</td><td>사용자에게 보여지는 화면을 담당합니다.</td></tr><tr><td>Controller</td><td>사용자의 요청을 받아 적절한 Model/Service를 호출하고 응답을 결정합니다.</td></tr></tbody></table></div></section><section><h3>Spring MVC 요청 흐름</h3><div class="diagram mermaid">flowchart LR
+A[Client] --> B[DispatcherServlet]
+B --> C[HandlerMapping]
+C --> D[Controller]
+D --> E[Service]
+E --> F[Repository]
+F --> G[Database]
+G --> F --> E --> D
+D --> H[View or ResponseBody]
+H --> A</div></section><section><h3>중요 객체</h3><div class="table-wrap"><table><thead><tr><th>객체</th><th>설명</th></tr></thead><tbody><tr><td>DispatcherServlet</td><td>모든 웹 요청을 가장 먼저 받는 Front Controller입니다.</td></tr><tr><td>HandlerMapping</td><td>요청 URL에 맞는 Controller 메서드를 찾습니다.</td></tr><tr><td>Controller</td><td>요청을 처리할 진입점입니다.</td></tr><tr><td>ViewResolver</td><td>View 이름을 실제 화면 파일로 해석합니다.</td></tr></tbody></table></div></section><section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>MVC를 쓰는 이유는?</strong><span>관심사를 분리해 유지보수성과 테스트 용이성을 높이기 위해서입니다.</span></li><li><strong>Spring MVC의 Front Controller는?</strong><span>DispatcherServlet입니다.</span></li><li><strong>Controller와 Service를 나누는 이유는?</strong><span>Controller는 요청/응답 처리, Service는 비즈니스 로직을 담당하게 하기 위해서입니다.</span></li></ul></section></article></main></body></html>
