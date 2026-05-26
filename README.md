@@ -9,10 +9,10 @@
 | 카테고리 | 포함된 주제 |
 |---|---|
 | 운영체제 | `.inf란 무엇인가?`, `리눅스란 무엇인가?` |
-| 네트워크 | `TCP란 무엇인가?`, `IoT란 무엇인가?`, `DNS란 무엇인가?`, `MQTT란 무엇인가?`, `WebSocket이란 무엇인가?`, `포트 포워딩이란 무엇인가?`, `SSH란 무엇인가?`, `터널링이란 무엇인가?` |
+| 네트워크 | `허브란 무엇인가?`, `TCP란 무엇인가?`, `IoT란 무엇인가?`, `DNS란 무엇인가?`, `MQTT란 무엇인가?`, `WebSocket이란 무엇인가?`, `포트 포워딩이란 무엇인가?`, `SSH란 무엇인가?`, `터널링이란 무엇인가?` |
 | 백엔드 | `WAS란 무엇인가?` |
 | 인프라 | `EC2란 무엇인가?` |
-| Spring | `MVC란 무엇인가?`, `DTO란 무엇인가?`, `RequestBody란 무엇인가?`, `RestController와 Controller 차이` |
+| Spring | `Bean이란 무엇인가?`, `ModelAttribute란 무엇인가?`, `MVC란 무엇인가?`, `DTO란 무엇인가?`, `RequestBody란 무엇인가?`, `RestController와 Controller 차이` |
 
 ## 배포
 
