@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Vue3의 컴포지션 API란 무엇인가? | Technology Notes</title><meta name="description" content="Vue3 Composition API의 의미, Options API와 차이, setup과 ref/reactive 예시 정리" /><link rel="stylesheet" href="/styles.css" /></head>
+<body><header class="site-header"><nav class="nav" aria-label="주요 이동"><a href="/">목록</a><a href="/notes/frontend">프론트엔드</a></nav><section class="hero"><p class="eyebrow">Vue 3</p><h1>Vue3의 컴포지션 API란 무엇인가?</h1><p class="hero-copy">Composition API는 컴포넌트의 상태와 로직을 함수 기반으로 구성해 재사용성과 유지보수성을 높이는 Vue3의 API입니다.</p></section></header>
+<main><article class="note"><div class="note-heading"><p class="category">프론트엔드</p><h2>Vue3의 컴포지션 API란 무엇인가?</h2><p>Vue3의 Composition API는 <code>setup</code>, <code>ref</code>, <code>reactive</code>, <code>computed</code>, <code>watch</code> 등을 사용해 컴포넌트 로직을 작성하는 방식입니다. Options API처럼 <code>data</code>, <code>methods</code>, <code>computed</code> 옵션별로 나누기보다, 관련 기능을 한 곳에 묶어 관리할 수 있습니다.</p></div>
+<section><h3>간단한 예시</h3><pre><code>&lt;script setup&gt;
+import { ref, computed } from 'vue'
+
+const count = ref(0)
+const doubled = computed(() =&gt; count.value * 2)
+
+function increase() {
+  count.value++
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button @click="increase"&gt;{{ count }} / {{ doubled }}&lt;/button&gt;
+&lt;/template&gt;</code></pre><p><code>ref</code>는 반응형 값을 만들고, <code>computed</code>는 상태를 기반으로 계산된 값을 만듭니다. 템플릿에서는 <code>.value</code> 없이 사용할 수 있습니다.</p></section>
+<section><h3>왜 사용하는가?</h3><ul class="interview-list"><li><strong>로직 재사용</strong><span>검색, 페이지네이션, 폼 처리 같은 로직을 composable 함수로 분리할 수 있습니다.</span></li><li><strong>관심사 분리</strong><span>기능별 상태와 함수를 가까이 배치할 수 있어 큰 컴포넌트에서 흐름을 파악하기 쉽습니다.</span></li><li><strong>타입 추론</strong><span>TypeScript와 함께 사용할 때 Options API보다 타입 추론이 자연스러운 경우가 많습니다.</span></li></ul></section>
+<section><h3>Options API와 차이</h3><div class="table-wrap"><table><thead><tr><th>구분</th><th>Options API</th><th>Composition API</th></tr></thead><tbody><tr><td>구성 기준</td><td>data, methods 같은 옵션</td><td>기능과 로직 단위</td></tr><tr><td>재사용</td><td>mixin 등을 사용</td><td>composable 함수 사용</td></tr><tr><td>대규모 컴포넌트</td><td>관련 로직이 옵션별로 흩어질 수 있음</td><td>관련 로직을 한 곳에 모으기 쉬움</td></tr></tbody></table></div></section>
+<section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>Composition API의 핵심 장점은?</strong><span>관련 로직을 기능 단위로 묶고 재사용하기 쉽다는 점입니다.</span></li><li><strong>ref와 reactive 차이는?</strong><span><code>ref</code>는 단일 값이나 객체를 감싸고 <code>.value</code>로 접근하며, <code>reactive</code>는 객체 자체를 반응형으로 만듭니다.</span></li><li><strong>Options API는 더 이상 못 쓰는가?</strong><span>아닙니다. Vue3에서도 Options API는 사용할 수 있으며, 프로젝트 규모와 팀 규칙에 맞춰 선택합니다.</span></li></ul></section></article></main></body></html>
