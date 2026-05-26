@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SSH란 무엇인가? | Technology Notes</title>
+  <meta name="description" content="SSH의 의미, 인증 방식, 원격 접속과 터널링에서의 역할 정리" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 이동">
+      <a href="/">목록</a>
+      <a href="/notes/network">네트워크</a>
+      <a href="/notes/port-forwarding">포트 포워딩</a>
+      <a href="/notes/tunneling">터널링</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Network Security</p>
+      <h1>SSH란 무엇인가?</h1>
+      <p class="hero-copy">SSH는 암호화된 연결을 통해 원격 서버에 안전하게 접속하고 명령을 실행하기 위한 프로토콜입니다.</p>
+    </section>
+  </header>
+
+  <main>
+    <article class="note">
+      <div class="note-heading">
+        <p class="category">네트워크</p>
+        <h2>SSH란 무엇인가?</h2>
+        <p><strong>SSH</strong>는 Secure Shell의 약자로, 네트워크를 통해 원격 서버에 안전하게 접속하기 위한 프로토콜입니다. 기본 포트는 <code>22</code>번이며, 서버 관리, 파일 전송, 터널링에 자주 사용됩니다.</p>
+      </div>
+
+      <section>
+        <h3>무엇을 안전하게 하는가?</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>기능</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td>암호화</td><td>클라이언트와 서버 사이의 데이터를 암호화해 중간에서 내용을 읽기 어렵게 합니다.</td></tr>
+              <tr><td>서버 검증</td><td>호스트 키를 통해 접속 대상 서버가 이전에 접속한 서버와 같은지 확인할 수 있습니다.</td></tr>
+              <tr><td>사용자 인증</td><td>비밀번호 또는 공개키 기반 인증으로 사용자를 확인합니다.</td></tr>
+              <tr><td>명령 실행</td><td>원격 서버의 셸에서 명령어를 실행할 수 있습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>인증 방식</h3>
+        <ul class="interview-list">
+          <li><strong>비밀번호 인증</strong><span>계정 비밀번호로 접속합니다. 설정은 쉽지만 무차별 대입 공격에 취약할 수 있습니다.</span></li>
+          <li><strong>공개키 인증</strong><span>개인키는 클라이언트에 보관하고 공개키는 서버에 등록해 인증합니다. 운영 서버에서는 이 방식을 선호합니다.</span></li>
+          <li><strong>MFA 연동</strong><span>보안이 중요한 환경에서는 추가 인증을 함께 적용할 수 있습니다.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>자주 쓰는 명령 예시</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>명령</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td><code>ssh user@host</code></td><td>원격 서버에 SSH로 접속합니다.</td></tr>
+              <tr><td><code>ssh -i key.pem user@host</code></td><td>특정 개인키를 사용해 접속합니다.</td></tr>
+              <tr><td><code>scp file user@host:/path</code></td><td>SSH 기반으로 파일을 복사합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list">
+          <li><strong>SSH의 기본 포트는?</strong><span>기본값은 TCP 22번 포트입니다.</span></li>
+          <li><strong>공개키 인증은 어떻게 동작하는가?</strong><span>서버는 등록된 공개키를 기준으로 클라이언트가 대응되는 개인키를 가지고 있는지 검증합니다.</span></li>
+          <li><strong>SSH와 Telnet의 차이는?</strong><span>Telnet은 평문 통신이고, SSH는 암호화된 통신을 제공합니다.</span></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
