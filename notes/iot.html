@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IoT란 무엇인가? | Technology Notes</title>
+  <meta name="description" content="IoT의 의미, 구성 요소, 네트워크 통신과 MQTT 활용 정리" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 이동">
+      <a href="/">목록</a>
+      <a href="/notes/network">네트워크</a>
+      <a href="/notes/mqtt">MQTT</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Network</p>
+      <h1>IoT란 무엇인가?</h1>
+      <p class="hero-copy">IoT는 센서, 기기, 서버가 네트워크로 연결되어 데이터를 수집하고 제어하는 사물인터넷 개념입니다.</p>
+    </section>
+  </header>
+
+  <main>
+    <article class="note">
+      <div class="note-heading">
+        <p class="category">네트워크</p>
+        <h2>IoT란 무엇인가?</h2>
+        <p><strong>IoT</strong>는 Internet of Things의 약자로, 사물에 센서와 통신 기능을 붙여 인터넷을 통해 데이터를 주고받는 구조를 말합니다. 스마트홈, 공장 설비, 차량, 웨어러블 기기, 물류 추적 시스템 등에서 사용됩니다.</p>
+      </div>
+
+      <section>
+        <h3>구성 요소</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>구성</th><th>역할</th></tr></thead>
+            <tbody>
+              <tr><td>디바이스</td><td>센서나 액추에이터를 가진 실제 장치입니다. 온도, 위치, 전력, 상태 값을 수집할 수 있습니다.</td></tr>
+              <tr><td>네트워크</td><td>Wi-Fi, LTE, 5G, BLE, Zigbee 등으로 장치와 서버를 연결합니다.</td></tr>
+              <tr><td>게이트웨이</td><td>여러 장치의 데이터를 모으거나 프로토콜을 변환해 서버로 전달합니다.</td></tr>
+              <tr><td>서버/클라우드</td><td>수집한 데이터를 저장, 분석하고 제어 명령을 내려보냅니다.</td></tr>
+              <tr><td>애플리케이션</td><td>사용자가 상태를 확인하거나 장치를 제어하는 화면과 API입니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>IoT에서 중요한 점</h3>
+        <ul class="interview-list">
+          <li><strong>저전력</strong><span>배터리로 오래 동작해야 하는 장치가 많아 통신량과 전력 사용을 줄여야 합니다.</span></li>
+          <li><strong>불안정한 네트워크</strong><span>장치가 항상 안정적인 네트워크에 연결되어 있지 않을 수 있어 재시도와 오프라인 처리가 필요합니다.</span></li>
+          <li><strong>대량 장치 관리</strong><span>수천, 수만 대의 장치를 등록, 인증, 업데이트, 모니터링해야 할 수 있습니다.</span></li>
+          <li><strong>보안</strong><span>장치 인증, 데이터 암호화, 펌웨어 업데이트, 권한 관리가 중요합니다.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>MQTT와의 관계</h3>
+        <p>IoT 환경에서는 장치가 작고 네트워크가 불안정한 경우가 많습니다. 그래서 가볍고 Publish/Subscribe 구조를 가진 MQTT가 자주 사용됩니다.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>역할</th><th>예시</th></tr></thead>
+            <tbody>
+              <tr><td>Publisher</td><td>온도 센서가 현재 온도 값을 발행합니다.</td></tr>
+              <tr><td>Broker</td><td>MQTT 서버가 메시지를 받아 구독자에게 전달합니다.</td></tr>
+              <tr><td>Subscriber</td><td>관제 서버나 앱이 특정 토픽을 구독해 상태를 받습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list">
+          <li><strong>IoT의 핵심은?</strong><span>물리 장치가 네트워크를 통해 데이터를 수집하고 서버나 앱과 상호작용한다는 점입니다.</span></li>
+          <li><strong>IoT에서 MQTT를 많이 쓰는 이유는?</strong><span>가볍고, Publish/Subscribe 구조라 장치와 서버를 느슨하게 연결할 수 있기 때문입니다.</span></li>
+          <li><strong>IoT 보안에서 중요한 것은?</strong><span>장치 인증, 암호화, 권한 제어, 안전한 업데이트 체계입니다.</span></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
