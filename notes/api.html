@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>API란 무엇인가? | Technology Notes</title><meta name="description" content="API의 의미, 웹 API, 요청과 응답, 엔드포인트 예시 정리" /><link rel="stylesheet" href="/styles.css" /></head>
+<body><header class="site-header"><nav class="nav" aria-label="주요 이동"><a href="/">목록</a><a href="/notes/backend">백엔드</a><a href="/notes/network">네트워크</a></nav><section class="hero"><p class="eyebrow">Backend</p><h1>API란 무엇인가?</h1><p class="hero-copy">API는 서로 다른 프로그램이 정해진 방식으로 기능이나 데이터를 주고받기 위한 약속입니다.</p></section></header>
+<main><article class="note"><div class="note-heading"><p class="category">백엔드</p><h2>API란 무엇인가?</h2><p><strong>API</strong>는 Application Programming Interface의 약자입니다. 애플리케이션끼리 기능을 호출하거나 데이터를 주고받기 위해 정한 인터페이스입니다. 웹 개발에서는 보통 클라이언트가 서버에 요청하고 서버가 응답하는 HTTP API를 많이 말합니다.</p></div>
+<section><h3>간단한 예시</h3><p>게시글 목록을 조회하는 화면이 있다고 가정합니다. 프론트엔드는 서버의 <code>GET /api/posts</code> API를 호출하고, 서버는 게시글 목록을 JSON으로 응답합니다.</p><pre><code>GET /api/posts
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  { "id": 1, "title": "첫 번째 글" },
+  { "id": 2, "title": "두 번째 글" }
+]</code></pre></section>
+<section><h3>API 구성 요소</h3><div class="table-wrap"><table><thead><tr><th>요소</th><th>설명</th></tr></thead><tbody><tr><td>Endpoint</td><td><code>/api/posts</code>처럼 요청을 보내는 주소입니다.</td></tr><tr><td>Method</td><td>GET, POST, PUT, DELETE처럼 요청의 목적을 나타냅니다.</td></tr><tr><td>Request</td><td>클라이언트가 서버로 보내는 파라미터, 헤더, 본문입니다.</td></tr><tr><td>Response</td><td>서버가 클라이언트에 돌려주는 상태 코드와 데이터입니다.</td></tr><tr><td>Contract</td><td>요청/응답 형식, 인증 방식, 에러 규칙 같은 약속입니다.</td></tr></tbody></table></div></section>
+<section><h3>왜 중요한가?</h3><ul class="interview-list"><li><strong>역할 분리</strong><span>프론트엔드와 백엔드가 API 계약을 기준으로 독립적으로 개발할 수 있습니다.</span></li><li><strong>재사용</strong><span>웹, 앱, 외부 시스템이 같은 API를 재사용할 수 있습니다.</span></li><li><strong>통합</strong><span>결제, 지도, 로그인 같은 외부 서비스를 API로 연동할 수 있습니다.</span></li></ul></section>
+<section><h3>면접 포인트</h3><ul class="interview-list"><li><strong>API는 서버 주소와 같은가?</strong><span>주소는 API의 일부입니다. API는 주소뿐 아니라 요청/응답 형식과 사용 규칙까지 포함합니다.</span></li><li><strong>REST API란?</strong><span>자원을 URI로 표현하고 HTTP Method로 행위를 표현하는 API 설계 스타일입니다.</span></li><li><strong>API 계약이 중요한 이유는?</strong><span>계약이 바뀌면 API를 사용하는 클라이언트 코드가 깨질 수 있기 때문입니다.</span></li></ul></section></article></main></body></html>
