@@ -228,6 +228,32 @@ code {
   list-style: none;
 }
 
+.note section:last-child:has(.interview-list) > h3 {
+  font-size: 0;
+  line-height: 0;
+  margin-bottom: 14px;
+}
+
+.note section:last-child:has(.interview-list) > h3::after {
+  content: "기술 포인트";
+  display: block;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.note section:last-child:has(.interview-list) > .interview-list::before {
+  content: "기술 포인트는 단순히 정의를 외우는 부분이 아니라, 실제 요청 흐름과 동작 계층, 장애 발생 시 확인해야 할 지점을 함께 연결해 이해하는 영역입니다. 각 항목은 개념의 역할, 주변 기술과의 차이, 실무에서 자주 보는 설정이나 디버깅 기준까지 묶어서 보면 더 오래 남습니다.";
+  display: block;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-muted);
+  color: #34424b;
+  font-weight: 600;
+}
+
 .interview-list li {
   display: grid;
   grid-template-columns: minmax(180px, 0.38fr) 1fr;
