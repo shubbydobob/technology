@@ -29,9 +29,9 @@ body {
 }
 
 .site-header {
-  background: linear-gradient(180deg, #102522 0%, #173532 54%, var(--bg) 54%);
+  background: linear-gradient(180deg, #102522 0%, #173532 100%);
   color: white;
-  padding: 24px clamp(18px, 4vw, 56px) 64px;
+  padding: 24px clamp(18px, 4vw, 56px) 96px;
 }
 
 .nav {
