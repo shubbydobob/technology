@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>포트 포워딩이란 무엇인가? | Technology Notes</title>
+  <meta name="description" content="포트 포워딩의 의미, NAT 환경에서의 역할, 사용 사례 정리" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 이동">
+      <a href="/">목록</a>
+      <a href="/notes/network">네트워크</a>
+      <a href="/notes/ssh">SSH</a>
+      <a href="/notes/tunneling">터널링</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Network</p>
+      <h1>포트 포워딩이란 무엇인가?</h1>
+      <p class="hero-copy">외부에서 들어온 특정 포트 요청을 내부 네트워크의 특정 장비와 포트로 전달하는 네트워크 설정입니다.</p>
+    </section>
+  </header>
+
+  <main>
+    <article class="note">
+      <div class="note-heading">
+        <p class="category">네트워크</p>
+        <h2>포트 포워딩이란 무엇인가?</h2>
+        <p>포트 포워딩은 공유기나 방화벽 같은 네트워크 장비가 받은 요청을 내부 서버의 특정 포트로 넘겨주는 설정입니다. NAT 환경에서 외부 사용자가 내부 서버에 접근해야 할 때 자주 사용합니다.</p>
+      </div>
+
+      <section>
+        <h3>예시</h3>
+        <p>공유기의 공인 IP로 들어온 <code>80</code>번 포트 요청을 내부 서버 <code>192.168.0.10:8080</code>으로 전달하도록 설정할 수 있습니다.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>외부 요청</th><th>전달 대상</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td><code>공인IP:80</code></td><td><code>192.168.0.10:8080</code></td><td>웹 요청을 내부 애플리케이션 서버로 전달</td></tr>
+              <tr><td><code>공인IP:2222</code></td><td><code>192.168.0.20:22</code></td><td>외부 SSH 접속을 내부 서버로 전달</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h3>사용 사례</h3>
+        <ul class="interview-list">
+          <li><strong>개발 서버 공개</strong><span>내부 PC에서 실행 중인 웹 서버를 외부에서 테스트해야 할 때 사용합니다.</span></li>
+          <li><strong>홈 서버 운영</strong><span>NAS, 게임 서버, 웹 서버를 공유기 뒤에서 외부에 공개할 때 사용합니다.</span></li>
+          <li><strong>포트 변환</strong><span>외부 포트와 내부 서비스 포트를 다르게 매핑할 수 있습니다.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>주의할 점</h3>
+        <p>포트 포워딩은 내부 서비스를 외부에 노출합니다. 따라서 인증, 방화벽, 접근 IP 제한, 서비스 업데이트 상태를 함께 점검해야 합니다.</p>
+      </section>
+
+      <section>
+        <h3>면접 포인트</h3>
+        <ul class="interview-list">
+          <li><strong>NAT와 어떤 관계가 있는가?</strong><span>NAT 뒤의 내부 사설 IP 서버로 외부 요청을 전달하기 위해 포트 포워딩을 사용합니다.</span></li>
+          <li><strong>포트를 열면 바로 접속 가능한가?</strong><span>아닙니다. OS 방화벽, 애플리케이션 바인딩 주소, ISP 정책도 함께 확인해야 합니다.</span></li>
+          <li><strong>보안 위험은?</strong><span>공개된 포트가 공격 대상이 될 수 있으므로 최소한의 포트만 열고 접근 제어를 적용해야 합니다.</span></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
