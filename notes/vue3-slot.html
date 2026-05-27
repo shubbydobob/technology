@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>slot이란 무엇인가? | Technology Notes</title><link rel="stylesheet" href="/styles.css" /></head><body><header class="site-header"><nav class="nav"><a href="/">목록</a><a href="/notes/frontend">프론트엔드</a></nav><section class="hero"><p class="eyebrow">Frontend</p><h1>slot이란 무엇인가?</h1><p class="hero-copy">부모 컴포넌트가 자식 컴포넌트의 특정 영역에 콘텐츠를 끼워 넣게 하는 Vue 기능입니다.</p></section></header><main><article class="note"><div class="note-heading"><p class="category">Vue3</p><h2>slot이란 무엇인가?</h2><p><strong>slot</strong>은 컴포넌트 내부 레이아웃은 자식이 제공하고, 실제 콘텐츠는 부모가 전달할 수 있게 하는 기능입니다. 공통 카드, 모달, 테이블 컴포넌트에 자주 사용합니다.</p></div><section><h3>예시</h3><pre><code>&lt;BaseCard&gt;
+  &lt;h2&gt;제목&lt;/h2&gt;
+  &lt;p&gt;내용&lt;/p&gt;
+&lt;/BaseCard&gt;
+
+// BaseCard 내부
+&lt;slot /&gt;</code></pre></section><section><h3>기술 포인트</h3><ul class="interview-list"><li><strong>named slot은?</strong><span>header, footer처럼 여러 영역에 이름을 붙여 콘텐츠를 나눠 전달하는 방식입니다.</span></li><li><strong>slot이 필요한 이유는?</strong><span>컴포넌트 재사용성을 높이면서 콘텐츠 구성은 부모가 결정하게 할 수 있습니다.</span></li></ul></section></article></main></body></html>
